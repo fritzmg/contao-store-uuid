@@ -1,0 +1,37 @@
+{
+	"name":"fritzmg/contao-store-uuid",
+	"description":"Mini extension which integrates a storeFormData hook to automatically convert file paths to UUIDs",
+	"keywords":["contao", "hook", "form", "uuid", "file"],
+	"type":"contao-module",
+	"homepage":"http://www.inspiredminds.at",
+	"license":"GPL-2.0",
+	"authors":[
+		{
+			"name":"Fritz Michael Gschwantner",
+			"homepage":"http://www.inspiredminds.at",
+			"email":"fmg@inspiredminds.at",
+			"role":"Developer"
+		}
+	],
+	"support":{
+		"email":"fmg@inspiredminds.at",
+		"issues":"https://github.com/fritzmg/contao-store-uuid/issues",
+		"source":"https://github.com/fritzmg/contao-store-uuid",
+		"forum":"https://community.contao.org/de"
+	},
+	"require":{
+		"php":">=5.2",
+		"contao/core":"~3.2",
+		"contao-community-alliance/composer-installer":"*"
+	},
+    "replace": {
+        "contao-legacy/store_uuid": "self.version"
+    },
+	"extra":{
+		"contao":{
+			"sources":{
+				"system/modules/store_uuid":"system/modules/store_uuid"
+			}
+		}
+	}
+}
