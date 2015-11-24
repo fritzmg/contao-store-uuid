@@ -6,7 +6,7 @@
  * simple extension to automatically save a file field as an UUID instead of the path
  * 
  * @copyright inspiredminds 2015
- * @package   sharebuttons
+ * @package   store_uuid
  * @link      http://www.inspiredminds.at
  * @author    Fritz Michael Gschwantner <fmg@inspiredminds.at>
  * @license   GPL-2.0
@@ -21,6 +21,10 @@ class StoreUUID extends \Controller
      */
     public function storeFormData( $arrSet, \Form $objForm )
     {
+        // check if data needs to be stored in database
+        if( !$objForm->storeValues || !$objForm->targetTable )
+            return;
+
         // get table
         $table = $objForm->targetTable;
 
@@ -42,14 +46,17 @@ class StoreUUID extends \Controller
             $dcaField = $GLOBALS['TL_DCA'][ $table ]['fields'][ $field ];
 
             // check for single fileTree inputType
-            if( $dcaField['inputType'] != 'fileTree' || $dcaField['eval']['multiple'] )
+            if( $dcaField['inputType'] != 'fileTree' )
                 continue;
 
-            // convert file path to UUID
+            // check if file does indeed exist
             if( file_exists( TL_ROOT .'/'. $value ) )
             {
+                // get the file object to retrieve UUID
                 $objFile = \Dbafs::addResource( $value );
-                $arrSet[ $field ] = $objFile->uuid;
+
+                // set the UUID
+                $arrSet[ $field ] = $dcaField['eval']['multiple'] ? serialize( array( $objFile->uuid ) ) : $objFile->uuid;
             }
         }
 
