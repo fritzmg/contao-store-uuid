@@ -21,10 +21,6 @@ class StoreUUID extends \Controller
      */
     public function storeFormData( $arrSet, \Form $objForm )
     {
-        // check if data needs to be stored in database
-        if( !$objForm->storeValues || !$objForm->targetTable )
-            return;
-
         // get table
         $table = $objForm->targetTable;
 
