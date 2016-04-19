@@ -45,8 +45,32 @@ class StoreUUID extends \Controller
             if( $dcaField['inputType'] != 'fileTree' )
                 continue;
 
+            // check if value is array
+            if( is_array( $value ) )
+            {
+                // DCA field must be enabled for multiple selection
+                if( !$dcaField['eval']['multiple'] )
+                    continue;
+
+                // prepare UUID array
+                $uuids = array();
+
+                // go through each file
+                foreach( $value as $file )
+                {
+                    // check if file exists
+                    if( file_exists( TL_ROOT .'/'. $file ) )
+                    {
+                        // get the file object to retrieve UUID
+                        $uuids[] = \Dbafs::addResource( $file )->uuid;
+                    }
+                }
+
+                // set the UUID array
+                $arrSet[ $field ] = serialize( $uuids );
+            }
             // check if file does indeed exist
-            if( file_exists( TL_ROOT .'/'. $value ) )
+            elseif( file_exists( TL_ROOT .'/'. $value ) )
             {
                 // get the file object to retrieve UUID
                 $objFile = \Dbafs::addResource( $value );
