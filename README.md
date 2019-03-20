@@ -1,4 +1,4 @@
-[![](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/fritzmg/contao-store-uuid)
+[![](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/fritzmg/contao-store-uuid)
 [![](https://img.shields.io/packagist/v/fritzmg/contao-store-uuid.svg)](https://packagist.org/packages/fritzmg/contao-store-uuid)
 [![](https://img.shields.io/packagist/dt/fritzmg/contao-store-uuid.svg)](https://packagist.org/packages/fritzmg/contao-store-uuid)
 
