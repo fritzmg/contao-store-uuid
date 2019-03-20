@@ -20,9 +20,9 @@
         "forum":"https://community.contao.org/de"
     },
     "require":{
-        "php":">=5.2",
-        "contao/core":"~3.2",
-        "contao-community-alliance/composer-installer":"*"
+        "php": ">=5.2",
+        "contao/core-bundle": "^3.2 || ^4.4",
+        "contao-community-alliance/composer-plugin": "^2.4 || ^3.0"
     },
     "replace": {
         "contao-legacy/store_uuid": "self.version"
