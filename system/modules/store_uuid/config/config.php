@@ -16,5 +16,4 @@
 /**
  * Hooks
  */
-if( version_compare( VERSION, '3.2', '>=' ) )
-	$GLOBALS['TL_HOOKS']['storeFormData'][] = array('StoreUUID', 'storeFormData');
+$GLOBALS['TL_HOOKS']['storeFormData'][] = array('StoreUUID', 'storeFormData');
