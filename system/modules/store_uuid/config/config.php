@@ -17,3 +17,4 @@
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['storeFormData'][] = array('StoreUUID', 'storeFormData');
+$GLOBALS['TL_HOOKS']['updatePersonalData'][] = array('StoreUUID', 'updatePersonalData');

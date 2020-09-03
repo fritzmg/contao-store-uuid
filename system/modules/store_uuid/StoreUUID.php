@@ -83,4 +83,53 @@ class StoreUUID extends \Controller
         // return result
         return $arrSet;
     }
+
+    public function updatePersonalData(\Contao\FrontendUser $user)
+    {
+        if (!isset($_SESSION['FILES']) || !is_array($_SESSION['FILES'])) {
+            return;
+        }
+
+        $update = [];
+        foreach ($_SESSION['FILES'] as $field => $uploadedFile) {
+            if (isset($uploadedFile['storeUuid']) || !$uploadedFile['uploaded'] || !$uploadedFile['uuid']) {
+                continue;
+            }
+
+            $fieldConfig = $GLOBALS['TL_DCA']['tl_member']['fields'][$field];
+
+            // Only support upload fields as other widgets might handle uploads itself
+            if ($fieldConfig['inputType'] !== 'upload') {
+                continue;
+            }
+
+            $value = \Contao\StringUtil::uuidToBin($uploadedFile['uuid']);
+
+            // Contao upload widget only support single uploads.
+            // Save compatible data for multiple fields at least.
+            if (! empty($fieldConfig['eval']['multiple'])) {
+                $value = [$value];
+
+                if (! empty($fieldConfig['eval']['orderField'])) {
+                    $update[$fieldConfig['eval']['orderField']] = $value;
+                }
+            }
+
+            $update[$field] = $value;
+
+            // Module personal data does not reset FILES session so there may be outdated entries.
+            // We cannot delete entry as other extensions might depend on it.
+            // Mark file as processed. A new update would override the entry.
+            $_SESSION['FILES'][$field]['storeUuid'] = true;
+        }
+
+        if ($update === []) {
+            return;
+        }
+
+        \Contao\Database::getInstance()
+            ->prepare('UPDATE tl_member %s WHERE id=?')
+            ->set($update)
+            ->execute($user->id);
+    }
 }
