@@ -1,6 +1,6 @@
 {
     "name":"fritzmg/contao-store-uuid",
-    "description":"Mini extension which integrates a storeFormData hook to automatically convert file paths to UUIDs",
+    "description":"Mini extension which integrates a storeFormData and a updatePersonalData hook to automatically convert uploaded file paths to UUIDs.",
     "keywords":["contao", "hook", "form", "uuid", "file"],
     "type":"contao-module",
     "homepage":"http://www.inspiredminds.at",
